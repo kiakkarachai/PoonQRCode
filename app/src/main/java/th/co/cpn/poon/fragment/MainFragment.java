@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import th.co.cpn.poon.R;
 
@@ -14,6 +15,33 @@ import th.co.cpn.poon.R;
  */
 
 public class MainFragment extends Fragment{
+
+//กด Alt + Insert เลือก onActivityCreated
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Register Controller  เพื่อสามารถให้กดได้
+        registerController();
+    }   // Main Method
+
+    private void registerController() {
+        TextView textView = getView().findViewById(R.id.txtRegister);
+        textView.setOnClickListener(new View.OnClickListener() {
+            // Alt + Enter
+            @Override
+            public void onClick(View view) {
+//                Replace Fragment
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contentMainFragment, new RegisterFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+
+            }
+        });
+    }
 
     @Nullable
     @Override
