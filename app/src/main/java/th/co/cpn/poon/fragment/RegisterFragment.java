@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,10 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import th.co.cpn.poon.MainActivity;
 import th.co.cpn.poon.R;
 import th.co.cpn.poon.utility.MyAlert;
+import th.co.cpn.poon.utility.MyConstance;
+import th.co.cpn.poon.utility.PostNewUserToServer;
 
 /**
  * Created by kiakkarachai on 08/03/2018.
@@ -63,6 +67,30 @@ public class RegisterFragment extends Fragment{
 
         } else {
 //            no space
+            try {
+
+                MyConstance myConstance = new MyConstance();
+                PostNewUserToServer postNewUserToServer = new PostNewUserToServer(getActivity());
+                postNewUserToServer.execute(nameString, userString, passwordString,myConstance.getUrlAddUser());
+
+                String result = postNewUserToServer.get();
+                Log.d("8MarchV1", "result ==>" + result);
+
+                if (Boolean.parseBoolean(result)) {
+                    Toast.makeText(getActivity(),"Welcome to App",
+                            Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().popBackStack();
+
+                } else {
+                    Toast.makeText(getActivity(),"Error Update",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } // if
 
