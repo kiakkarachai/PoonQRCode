@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -21,7 +22,7 @@ import th.co.cpn.poon.utility.MyConstance;
  * Created by kiakkarachai on 12/03/2018.
  */
 
-public class ShowAllFragment extends Fragment{
+public class ShowAllFragment extends Fragment {
 
 
     @Override
@@ -50,17 +51,32 @@ public class ShowAllFragment extends Fragment{
 
             String[] nameFoodString = new String[jsonArray.length()];
             String[] imagePathString = new String[jsonArray.length()];
+            String[] categoryStrings = new String[jsonArray.length()];
+            String[] priceStrings = new String[jsonArray.length()];
+            String[] detailStrings = new String[jsonArray.length()];
 
 
-            for (int i=0; i<jsonArray.length(); i+=1) {
+            for (int i = 0; i < jsonArray.length(); i += 1) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 nameFoodString[i] = jsonObject.getString("NameFood");
                 imagePathString[i] = jsonObject.getString("ImagePath");
+                categoryStrings[i] = jsonObject.getString("Category");
+                priceStrings[i] = jsonObject.getString("Price");
+                detailStrings[i] = jsonObject.getString("Detail");
             }  // for
 
 
             MyAdapter myAdapter = new MyAdapter(getActivity(), nameFoodString, imagePathString);
             listView.setAdapter(myAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
