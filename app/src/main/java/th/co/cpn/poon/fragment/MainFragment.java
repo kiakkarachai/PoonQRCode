@@ -1,5 +1,6 @@
 package th.co.cpn.poon.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import th.co.cpn.poon.R;
+import th.co.cpn.poon.ServiceActivity;
 import th.co.cpn.poon.utility.GetAllData;
 import th.co.cpn.poon.utility.MyAlert;
 import th.co.cpn.poon.utility.MyConstance;
@@ -88,12 +91,33 @@ public class MainFragment extends Fragment {
                                 for (int i1 = 0; i1 < columnUserStrings.length; i1 += 1) {
                                     loginStrings[i1] = jsonObject.getString(columnUserStrings[i1]);
 
+
+
                                     Log.wtf("8MarchV1", "loginString[" + i1 + "] ==>" + loginStrings[i1]);
 
                                 } // For
+
                             } // If
 
                         }   // For
+
+                        if (userStatus) {
+//                            User False
+                            MyAlert myAlert = new MyAlert(getActivity());
+                            myAlert.myDialog("User False", "No this user in my Database");
+                        } else if (passwordString.equals(loginStrings[3])) {
+//                            Password true
+                            Toast.makeText(getActivity(), "Welcome" + loginStrings[1], Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), ServiceActivity.class);
+                            intent.putExtra("Login", loginStrings);
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        } else {
+//                            password false
+                            MyAlert myAlert = new MyAlert(getActivity());
+                            myAlert.myDialog("Password False", "Please Try Again Password False");
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
