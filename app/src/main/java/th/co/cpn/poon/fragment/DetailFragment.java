@@ -16,7 +16,7 @@ import th.co.cpn.poon.R;
 public class DetailFragment extends Fragment {
 
 
-    public DetailFragment detailInstance(
+    public static DetailFragment detailInstance(
             String nameFood,
             String imagePath,
             String category,
