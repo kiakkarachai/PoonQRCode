@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import th.co.cpn.poon.fragment.QRscanFragment;
 import th.co.cpn.poon.fragment.ShowAllFragment;
 
 public class ServiceActivity extends AppCompatActivity {
@@ -36,12 +39,65 @@ public class ServiceActivity extends AppCompatActivity {
 
 
 //        Add Fragment to Activity
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.contentServiceFragment, new ShowAllFragment()).commit();
-        }
+        addFragment(savedInstanceState);
+
+//        SHow Readall
+        SHowReadall();
+
+//        QR scan
+        QRScan();
+
+//        Exit Controller
+        exitController();
 
 
     }  // Main Method
+
+    private void exitController() {
+        TextView textView = findViewById(R.id.txtExit);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void QRScan() {
+        TextView textView = findViewById(R.id.txtQRscan);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentServiceFragment, QRscanFragment.qRscanInstance(loginStrings))
+                        .commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+
+    }
+
+    private void SHowReadall() {
+        TextView textView = findViewById(R.id.txtShowAll);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.contentServiceFragment, new ShowAllFragment()).commit();
+                drawerLayout.closeDrawers();
+
+            }
+        });
+    }
+
+    private void addFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.contentServiceFragment, new ShowAllFragment()).commit();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
