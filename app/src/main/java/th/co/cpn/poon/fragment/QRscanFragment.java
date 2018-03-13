@@ -64,16 +64,15 @@ public class QRscanFragment extends Fragment {
                         Log.wtf(tag, "QR code ==>" + resultString);
                         zXingScannerView.stopCamera();
                         getActivity().setContentView(R.layout.activity_service);
-
                         Intent intent = getActivity().getIntent();
                         intent.putExtra("Login", loginStrings);
+                        intent.putExtra("Status", false);
+                        intent.putExtra("QRcode", resultString);
                         startActivity(intent);
 
 
 
-//                        getActivity().getSupportFragmentManager()
-//                                .beginTransaction().replace(R.id.contentServiceFragment, new DisplayQRfragment())
-//                                .commit();
+//
 
                     }
                 });

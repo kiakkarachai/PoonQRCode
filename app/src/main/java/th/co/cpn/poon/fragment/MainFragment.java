@@ -110,6 +110,7 @@ public class MainFragment extends Fragment {
                             Toast.makeText(getActivity(), "Welcome" + loginStrings[1], Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getActivity(), ServiceActivity.class);
                             intent.putExtra("Login", loginStrings);
+                            intent.putExtra("Status", true);
                             startActivity(intent);
                             getActivity().finish();
 
